@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Sup Fucker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Password</title>
 </head>
 <body>
-    <form class="grid" action="/success" method="POST">
+    <!-- Password form -->
+    <form action="/success" method="POST">
         <center>
-            {% if open_door %}
-            <h3 style="color: blueviolet;">
-                Opening door now...
-            </h3>
-            {% endif %}
+            <label for="password">Enter the password:</label>
+            <input type="password" name="password" id="password" required>
+            <input type="submit" value="Submit">
         </center>
 
-        <label for="password">Enter the password:</label>
-        <input type="password" name="password" id="password">
-
-        <center><input type="submit" class="file_submit" value="Submit"></center>
-
+        <!-- Display error message if the password is incorrect -->
         {% if error %}
         <p style="color: red;">{{ error }}</p>
         {% endif %}
