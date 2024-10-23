@@ -2,12 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Success!</title>
+    <script>
+        // Function to lock the door
+        function lockDoor() {
+            fetch('/lock', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.message;
+                document.getElementById('door-status').innerText = data.status ? 'Unlocked' : 'Locked';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Function to unlock the door
+        function unlockDoor() {
+            fetch('/unlock', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.message;
+                document.getElementById('door-status').innerText = data.status ? 'Unlocked' : 'Locked';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,30 +49,38 @@
         h1 {
             color: #3498db;
         }
-        a {
-            display: inline-block;
+        button {
             margin-top: 20px;
             padding: 10px 20px;
-            color: #fff;
             background-color: #3498db;
-            text-decoration: none;
+            color: white;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
-        a:hover {
+        button:hover {
             background-color: #2980b9;
+        }
+        #result {
+            margin-top: 20px;
+            color: green;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Success!</h1>
-        <p>You've entered the correct password. The door is now open!</p>
-        <a href="/">Back to Home</a>
-    </div>
-</body>
-</html></title>
-</head>
-<body>
+        <p>You've entered the correct password.</p>
 
+        <!-- Display the current status of the door -->
+        <p>Current door status: <span id="door-status">{{ 'Unlocked' if status else 'Locked' }}</span></p>
+
+        <!-- Buttons to lock and unlock the door -->
+        <button onclick="unlockDoor()">Unlock Door</button>
+        <button onclick="lockDoor()">Lock Door</button>
+
+        <!-- Placeholder for server response -->
+        <div id="result"></div>
+    </div>
 </body>
 </html>
